@@ -1,0 +1,7 @@
+text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput
+application/pdf; zathura %s
+image/jpg; ~sxiv %s
+image/jpeg; sxiv %s
+image/pjpeg; sxiv %s
+image/png; sxiv %s
+image/gif; sxiv %s
