@@ -1,0 +1,27 @@
+# Play/Pause music
+XF86AudioPlay
+    echo 'cycle pause' | socat - /tmp/mpvsocket
+
+# Previous / Next Song
+XF86Audio{Prev,Next}
+    echo 'playlist-{prev,next}' | socat - /tmp/mpvsocket
+
+# Increase volume
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +1000
+
+# Decrease volume
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -1000
+
+# Mute volume
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Open pass-dmenu
+super + shift + {p,bracketleft}
+    pashmenu { ,--type}
+
+# Opne mutt
+XF86Mail
+    mutt
