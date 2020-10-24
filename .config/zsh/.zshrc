@@ -20,6 +20,10 @@ ${vcs_info_msg_0_}\
 %B%F{red}$ %b%f'
 
 setopt autocd           # Automatically cd into typed directory.       
+setopt histignorespace  # Don't add to history if there is a leading space
+
+bindkey "^[[A" history-beginning-search-backward        # search history when typing
+bindkey "^[[B" history-beginning-search-forward
 
 # History in cache directory:
 HISTSIZE=10000
@@ -27,9 +31,9 @@ SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
 # Load aliases and shortcuts if existent.
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"  ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
+#[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"  ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"  ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"  ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
+#[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"  ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
 
 # Load other config
 source $ZDOTDIR/zsh-keymap.zsh

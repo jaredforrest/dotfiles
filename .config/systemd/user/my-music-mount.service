@@ -1,0 +1,16 @@
+[Unit]
+Description=Mount my music from server
+After=network-online.target
+Wants=network-online.target
+Before=umount.target
+Conflicts=umount.target
+
+[Service]
+Type=forking
+ExecStart=sshfs -o _netdev,reconnect mediauser:/media/main/Personal/Music /home/jalio/music
+ExecStop=fusermount -uz /home/jalio/music
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=xsession.target

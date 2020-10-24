@@ -11,6 +11,8 @@ export LESS_TERMCAP_us=$'\e[01;38;5;3m' \
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 
+alias sxiv='sxiv -a'
+alias mwallet='monero-wallet-cli --config-file .config/monero-wallet-cli/config.conf'
 alias tshark='COLORTERM=truecolor tshark --color'
 alias ip='ip -c'
 alias ls='ls --color'

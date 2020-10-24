@@ -1,11 +1,13 @@
 # Play/Pause music
 XF86AudioPlay
-    echo 'cycle pause' | socat - /tmp/mpvsocket
+#    playerctl play-pause
+	mpc toggle
 
 # Previous / Next Song
-XF86Audio{Prev,Next}
-    echo 'playlist-{prev,next}' | socat - /tmp/mpvsocket
-
+XF86Audio{Next,Prev}
+#    playerctl {next,previous}
+	mpc {next,prev}
+    
 # Increase volume
 XF86AudioRaiseVolume
     pactl set-sink-volume @DEFAULT_SINK@ +1000
@@ -18,10 +20,20 @@ XF86AudioLowerVolume
 XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+XF86Calculator
+	$TERMINAL -e qalc
+XF86Mail
+	$TERMINAL -e mutt
+XF86AudioMedia
+	$TERMINAL -e ncmpcpp
 # Open pass-dmenu
 super + shift + {p,bracketleft}
     pashmenu { ,--type}
 
-# Opne mutt
+# Get current time
+super + shift + t
+    notify-time
+
+# Open mutt
 XF86Mail
     mutt

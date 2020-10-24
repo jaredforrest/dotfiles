@@ -7,6 +7,8 @@ done
 unset f
 fi
 
+export _JAVA_AWT_WM_NONREPARENTING=1 # for android studio
 /home/./jalio/.config/xprofile
+systemctl --no-block --user start xsession.target
 exec dwm
 

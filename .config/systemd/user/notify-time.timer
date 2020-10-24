@@ -1,0 +1,8 @@
+[Unit]
+Description=Run notify time hourly
+
+[Timer]
+OnCalendar=hourly
+
+[Install]
+WantedBy=timers.target

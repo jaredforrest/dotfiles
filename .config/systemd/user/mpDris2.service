@@ -1,0 +1,11 @@
+[Unit]
+Description=mpDris2 provide MPRIS 2 support to mpd
+Requires=mpd.service
+After=mpd.service
+
+[Service]
+ExecStart=/usr/bin/mpDris2
+ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
+
+[Install]
+WantedBy=xsession.target

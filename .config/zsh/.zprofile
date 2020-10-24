@@ -14,6 +14,6 @@ LS_COLORS='rs=0:di=38;5;15:ln=38;5;250:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33
 export LS_COLORS
 
 
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1   ]]; then
-    exec startx
-fi
+#if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1   ]]; then
+#    exec startx &> /dev/null
+#fi

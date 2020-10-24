@@ -1,0 +1,15 @@
+[Unit]
+Description=Xorg server at display %i
+
+Requires=xorg.socket
+After=xorg.socket
+
+[Service]
+Type=simple
+SuccessExitStatus=0 1
+
+ExecStart=/usr/bin/startx -keeptty -verbose 2
+#:0 "vt1"
+
+[Install]
+WantedBy=default.target

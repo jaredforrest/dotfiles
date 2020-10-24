@@ -1,23 +1,20 @@
-[Added Associations]
-application/pdf=libreoffice-draw.desktop;org.pwmt.zathura-pdf-poppler.desktop;okularApplication_pdf.desktop;
-application/x-kdeuser1=vlc.desktop;
-image/svg+xml=org.inkscape.Inkscape.desktop;gimp.desktop;vim.desktop;libreoffice-writer.desktop;okularApplication_txt.desktop;firefox.desktop;
-text/plain=vim.desktop;
-text/x-csrc=vim.desktop;
-video/mp4=vlc.desktop;mplayer.desktop;fr.handbrake.ghb.desktop;mpv.desktop;
-video/x-matroska=vlc.desktop;
-image/jpeg=org.gnome.eog.desktop;
-binary/octet-stream=imv.desktop;
-
 [Default Applications]
-application/x-kdeuser1=vlc.desktop;
-image/svg+xml=org.inkscape.Inkscape.desktop;
-text/plain=vim.desktop;
-text/x-csrc=vim.desktop;
+application/pdf=pdf.desktop
+text/plain=text.desktop;
+text/x-csrc=text.desktop;
+text/html=firefox.desktop
 video/mp4=vid.desktop;
 video/x-matroska=vid.desktop;
+image/jpeg=img.desktop
+image/gif=img.desktop
+image/png=img.desktop
+image/svg+xml=org.inkscape.Inkscape.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
-text/html=firefox.desktop
 x-scheme-handler/discord-589393213723246592=discord-589393213723246592.desktop
-application/pdf=pdf.desktop
+x-scheme-handler/msteams=teams.desktop
+
+[Added Associations]
+application/octet-stream=text.desktop;
+application/pdf=gimp.desktop;
+application/x-tex=text.desktop;
