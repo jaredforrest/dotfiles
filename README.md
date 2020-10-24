@@ -7,9 +7,9 @@
 	- sxhkd (general key binder)
 	- mpd (music)
 	- khal (calendar program)
-  - khard (contacts program)
-  - vdirsync (carddav caldav syncer)
-  - some systemd stuff
+	- khard (contacts program)
+	- vdirsync (carddav caldav syncer)
+	- some systemd stuff
 	- other stuff like xdg default programs, picom and more, etc.
 - I try to minimize what's directly in `~` so:
 	- All configs that can be in `~/.config/` are.
