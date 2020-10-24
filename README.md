@@ -13,4 +13,4 @@
 	- other stuff like xdg default programs, picom and more, etc.
 - I try to minimize what's directly in `~` so:
 	- All configs that can be in `~/.config/` are.
-	- Some environmental variables have been set in `~/.pam_environment` to move configs into `~/.config/`
+	- Some environmental variables have been set in `~/.pam_environment` to move configs into `~/.config/` and historys to `~/.local/share/`
