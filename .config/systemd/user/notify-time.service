@@ -1,6 +1,0 @@
-[Unit]
-Description=Notify User of Current Time
-
-[Service]
-Type=oneshot
-ExecStart=/home/jalio/.local/bin/notify-time
