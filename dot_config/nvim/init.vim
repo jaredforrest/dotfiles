@@ -4,6 +4,7 @@ set expandtab
 
 let g:ycm_clangd_binary_path = "/path/to/clangd"
 " Specify a directory for plugins
+packadd minpac
 call minpac#init()
 
 call minpac#add('lervag/vimtex')
