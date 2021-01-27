@@ -1,0 +1,21 @@
+#!/bin/sh
+
+[ "$1" = "--type" ] && typeit=1 || typeit=0
+
+. "$SHELL_LIB_DIR"/pachselect.sh
+password=$(_pachselect)
+
+[ -n "$password" ] || exit
+
+if [ $typeit -eq 0 ]; then
+        {
+            printf 'Clearing clipboard in 15 seconds.\n'
+            sleep 15 || kill 0
+            xclip -sel c </dev/null
+        } &
+
+        pach h "$password" | xclip -sel c
+else
+        pach s "$password" | { IFS= read -r pass; printf %s "$pass"; } |
+		xdotool type --clearmodifiers --file -
+fi

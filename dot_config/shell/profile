@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Options for highlight
+export HIGHLIGHT_OPTIONS='--replace-tabs 4 --out-format truecolor -s molokai'
+
+# Enable color in less
+export LESS_TERMCAP_mb=$(tput blink)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 11)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_se=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 12)
+export LESS_TERMCAP_ue=$(tput sgr0)
+export LESS_TERMCAP_us=$(tput bold; tput setaf 3) 
+export LESSOPEN='| highlight %s' 
+export LESS='-r '
+
+# Colors for ls and lf
+LS_COLORS='no=0:rs=0:di=4;38;5;15:ln=38;5;250:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=38;5;190:*.txt=38;5;244:*.csv=38;5;244:*.rtf=38;5;101:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=38;5;34:*.jpeg=38;5;34:*.mjpg=35:*.mjpeg=35:*.gif=38;5;70:*.bmp=38;5;2:*.sxl=38;5;70:*.pbm=38;5;2:*.pgm=38;5;2:*.ppm=38;5;2:*.tga=38;5;35:*.xbm=38;5;2:*.xpm=38;5;2:*.tif=38;5;34:*.tiff=38;5;34:*.png=38;5;35:*.svg=38;5;39:*.svgz=38;5;39:*.mng=35:*.pcx=35:*.mov=38;5;93:*.mpg=38;5;93:*.mpeg=38;5;63:*.m2v=38;5;93:*.mkv=38;5;63:*.webm=38;5;92:*.webp=38;5;92:*.ogm=38;5;92:*.mp4=38;5;63:*.m4v=38;5;93:*.mp4v=38;5;93:*.vob=38;5;63:*.qt=01;35:*.nuv=01;35:*.wmv=38;5;92:*.asf=38;5;92:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=38;5;93:*.fli=01;35:*.flv=38;5;92:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=38;5;168:*.ogx=38;5;168:*.aac=38;5;168:*.au=38;5;168:*.flac=38;5;168:*.m4a=38;5;168:*.mid=38;5;168:*.midi=38;5;168:*.mka=38;5;168:*.mp3=38;5;168:*.mpc=38;5;168:*.ogg=38;5;168:*.ra=38;5;168:*.wav=38;5;168:*.oga=38;5;168:*.opus=38;5;168:*.spx=00;36:*.xspf=00;36:*.pdf=38;5;4:*.epub=38;5;4:*.xopp=38;5;12:*.docx=38;5;12:*.doc=38;5;12:*.odt=38;5;12:*.pub=38;5;10:*.odg=38;5;12:*.pptx=38;5;160:*.ppt=38;5;160:*.odp=38;5;160:*.xlsx=38;5;76:*.xls=38;5;76:*.xlsm=38;5;76:*.ods=38;5;76:*.iso=38;5;21:*.img=38;5;21:*.c=38;5;195:*.h=38;5;195:*.cpp=38;5;153:*.py=38;5;185:*.hs=38;5;194:*.html=38;5;231:*.htm=38;5;231:*.apk=38;2;61;219;134:*.blend=38;2;235;119;0:*.psd=38;2;153;153;255:*.ai=38;5;255;155;0:*README=38;5;220;1:*README.rst=38;5;220;1:*README.md=38;5;220;1:*LICENSE=38;5;220;1:*COPYING=38;5;220;1:*INSTALL=38;5;220;1:*COPYRIGHT=38;5;220;1:*AUTHORS=38;5;220;1:*HISTORY=38;5;220;1:*CONTRIBUTORS=38;5;220;1:*PATENTS=38;5;220;1:*VERSION=38;5;220;1:*NOTICE=38;5;220;1:*CHANGES=38;5;220;1:'
+export LS_COLORS
+
+# Colors for lf
+LF_ICONS='tw=:st=:ow=:dt=:di=:fi=:ln=:or=:ex=:*.dat=:*.c=:*.cc=:*.clj=:*.coffee=:*.cpp=:*.css=:*.d=:*.dart=:*.erl=:*.exs=:*.fs=:*.go=:*.h=:*.hh=:*.hpp=:*.hs=:*.html=:*.htm=:*.java=:*.jl=:*.js=:*.json=:*.lua=:*.md=:*.php=:*.pl=:*.pro=:*.py=:*.rb=:*.rs=:*.scala=:*.ts=:*.vim=:*.cmd=:*.ps1=:*.sh=:*.bash=:*.zsh=:*.fish=:*.tar=:*.tgz=:*.arc=:*.arj=:*.taz=:*.lha=:*.lz4=:*.lzh=:*.lzma=:*.tlz=:*.txz=:*.tzo=:*.t7z=:*.zip=:*.z=:*.dz=:*.gz=:*.lrz=:*.lz=:*.lzo=:*.xz=:*.zst=:*.tzst=:*.bz2=:*.bz=:*.tbz=:*.tbz2=:*.tz=:*.deb=:*.rpm=:*.jar=:*.war=:*.ear=:*.sar=:*.rar=:*.alz=:*.ace=:*.zoo=:*.cpio=:*.7z=:*.rz=:*.cab=:*.wim=:*.swm=:*.dwm=:*.esd=:*.jpg=:*.jpeg=:*.mjpg=:*.mjpeg=:*.gif=:*.bmp=:*.pbm=:*.pgm=:*.ppm=:*.tga=:*.xbm=:*.xpm=:*.tif=:*.tiff=:*.png=:*.svg=:*.svgz=:*.mng=:*.pcx=:*.mov=:*.mpg=:*.mpeg=:*.m2v=:*.mkv=:*.webm=:*.ogm=:*.mp4=:*.m4v=:*.mp4v=:*.vob=:*.qt=:*.nuv=:*.wmv=:*.asf=:*.rm=:*.rmvb=:*.flc=:*.avi=:*.fli=:*.flv=:*.gl=:*.dl=:*.xcf=:*.xwd=:*.yuv=:*.cgm=:*.emf=:*.ogv=:*.ogx=:*.aac=:*.au=:*.flac=:*.m4a=:*.mid=:*.midi=:*.mka=:*.mp3=:*.mpc=:*.ogg=:*.ra=:*.wav=:*.oga=:*.opus=:*.spx=:*.xspf=:*.pdf=:*.epub=:*.xopp=ﴬ:*.docx=:*.doc=:*.odt=:*.pub=:*.odg=:*.pptx=:*.ppt=:*.odp=:*.xlsx=:*.xls=:*.xlsm=:*.ods=:*.txt=:*.csv=:*.rtf=:*.nix=:*.apk=ﲎ:*.iso=:*.img=:*.blend=:*.yml=:*.ini=:*.psd=:*.ai=:'
+
+export LF_ICONS
+
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# startx if not already started
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+#   startx
+   xinit -- :1 -nolisten tcp vt1
+fi
+

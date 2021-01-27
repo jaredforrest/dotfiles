@@ -1,0 +1,9 @@
+#compdef _pach pach
+
+_pach () {
+	local IFS=$'\n'
+	local prefix="${PASH_DIR:-$HOME/.local/share/password-store}"
+#	_values -C 'passwords' ${$(find -L "$prefix" -name "*.gpg" 2>/dev/null | sed -e "s#${prefix}/\{0,1\}##" -e 's#\.gpg##' -e 's#\\#\\\\#' | sort):-""}
+	_values -C 'passwords' ${$(pach l):-""}
+}
+

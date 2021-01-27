@@ -1,0 +1,54 @@
+# Play/Pause music
+XF86AudioPlay
+	mpc toggle -q
+
+# Previous / Next Song
+XF86Audio{Next,Prev}
+	mpc {next,prev} -q
+    
+# Play/Pause music
+ctrl + XF86AudioPlay
+    playerctl play-pause && notify-send -i "$(playerctl metadata --format \{\{mpris:artUrl\}\})" "$(playerctl metadata --format \{\{title\}\})" "$(playerctl metadata --format \{\{artist\}\})" -t 2000
+
+# Previous / Next Song
+ctrl + XF86Audio{Next,Prev}
+    playerctl {next,previous} && sleep 0.05s; notify-send -i "$(playerctl metadata --format \{\{mpris:artUrl\}\})" "$(playerctl metadata --format \{\{title\}\})" "$(playerctl metadata --format \{\{artist\}\})" -t 2000
+
+# Increase volume
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +1000
+
+# Decrease volume
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -1000
+
+# Mute volume
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+XF86Calculator
+	$TERMINAL -g +958-514 -n spterm -e qalc
+XF86Mail
+	systemctl --user --no-block start offlineimap-oneshot.service; $TERMINAL -g +958+514 -n spterm -e mutt
+XF86Tools
+	$TERMINAL -g +958-514 -n spterm -e ncmpcpp
+# Open pass-dmenu
+super + shift + {p,bracketleft}
+    pachmenu { ,--type}
+
+# Open autofill
+super + shift + a
+    autofill
+
+# Get current time
+super + shift + t
+    notify-time
+
+# Get current time
+super + shift + {h,l,j,k}
+    xdotool getactivewindow windowmove --relative -- {-50 0,50 0,0 50,0 -50}
+
+# Screenshot
+Print
+    maim -s -u | xclip -selection clipboard -t image/png -i
+

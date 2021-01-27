@@ -1,0 +1,22 @@
+#!/bin/sh
+while read -r file
+do
+    case "$1" in
+        "C-y")  
+            printf "%s" "$file" | tr '\n' ' ' | xclip -in -selection clipboard &&
+                notify-send "$(basename "$file")" -i /usr/share/icons/Papirus-Dark/48x48/apps/diodon.svg "$file copied to clipboard" & ;;
+        "y")  
+            xclip -selection clipboard -target image/png "$file" &&
+                tmpfile=$(mktemp);convert "$file" -resize 128x128 "$tmpfile" &&
+                notify-send -i "$tmpfile" "Image copied to clipboard";rm "$tmpfile";;
+#        "C-r")
+#            convert -rotate 90 "$file" "$file";;
+#        "C-R")
+#            convert -rotate -90 "$file" "$file";;
+        "d")
+            tmpfile=$(mktemp);convert "$file" -resize 128x128 "$tmpfile" &&
+            trash-put "$file" && 
+            notify-send -i "$tmpfile" "$(basename "$file")" "$(basename "$file") sent to trash."; rm "$tmpfile" ;;
+        "g")	gimp "$file" & ;;
+    esac
+done

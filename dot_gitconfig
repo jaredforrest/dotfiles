@@ -1,0 +1,11 @@
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    autoclrf=auto
+[user]
+	email = jared_forrest@mailbox.org
+	name = Jared Forrest
+[push]
+	default = upstream

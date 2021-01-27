@@ -1,0 +1,8 @@
+#compdef _gidtown gidtown
+
+_gidtown () {
+	local IFS=$'\n'
+	_values -C 'passwords' ${$(git ls-remote git@github.com:jaredforrest/PKGBUILDS.git | awk '/refs\/heads\// {gsub("refs/heads/","",$2);  print $2 }')}
+}
+
+

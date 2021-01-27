@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# This script produces an otp using pach
+
+die() {	printf '%s\n' "$@" >&2; exit 1; }
+
+otpget () {
+
+uri=$1
+[ -z "$uri" ] && die "No key uri was entered" 
+
+set -- $(printf "%s" "$uri" | sed -e "s/ /%20/g" | sed -E "s/^otpauth:\/\/(totp|hotp)\/([^:?]+?:([^:?]*)?)?\?(.+)$/\0 \1 \2 \3 \4 /")
+otp_uri="$1"
+otp_type="$2"
+#otp_label="$3"
+#otp_accountname="$4"
+
+set -- $(printf "%s" "$5" | sed -e "s/&/ /g")
+
+for param; do
+    key=${param%%=*}
+    case $key in
+        secret) otp_secret=${param#*=} ;;
+        digits) otp_digits=${param#*=} ;;
+        algorithm) otp_algorithm=${param#*=} ;;
+        period) otp_period=${param#*=} ;;
+        counter) otp_counter=${param#*=} ;;
+#        issuer) otp_issuer=${param#*=} ;;
+        *) ;;
+    esac
+done
+
+[ -z "$otp_secret" ] && die "Invalid key URI (missing secret); $otp_uri"
+
+case "$otp_type" in
+    totp)
+        cmd="oathtool -b --totp"
+        [ -n "$otp_algorithm" ] && cmd=${cmd}$(printf "=%s" "${otp_algorithm}" | tr "[:upper:]" "[:lower:]")
+        [ -n "$otp_period" ] && cmd=${cmd}" --time-step-size=$otp_period"s
+        [ -n "$otp_digits" ] && cmd=${cmd}" --digits=$otp_digits"
+        cmd=${cmd}" $otp_secret"
+        ;;
+
+    hotp)
+        counter=$((otp_counter+1))
+        cmd="$OATH -b --hotp --counter=$counter"
+        [ -n "$otp_digits" ] && cmd=${cmd}" --digits=$otp_digits"
+        cmd=${cmd}" $otp_secret"
+        ;;
+
+    *)
+        die "Invalid URI given."
+        ;;
+esac
+
+notify-send "OTP" "$($cmd)" -t 15000 -i "encrypted"
+}
+
+# For pachselect
+. "$SHELL_LIB_DIR"/pachselect.sh
+
+password=$(_pachselect)
+
+[ -z "$password" ] && exit
+
+pach s "$password" |
+while read -r line; do
+    [ "${line%%://*}" = "otpauth" ] && otpget "$line"
+done

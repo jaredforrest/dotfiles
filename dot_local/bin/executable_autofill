@@ -1,0 +1,16 @@
+#!/bin/sh
+
+prefix=${PACH_DIR-~/.local/share/password-store}/.autofill
+set -- $prefix/*
+
+# like sed but slightly faster
+for tmp; do
+  tmp=${tmp#"$prefix"/}
+  set -- "$@" "$tmp"
+  shift
+done
+
+cmd=$(printf '%s\n' "$@" | dmenu -i -c -h 24 -l 20)
+[ -z "$cmd" ] && exit 1
+
+"$prefix"/$cmd

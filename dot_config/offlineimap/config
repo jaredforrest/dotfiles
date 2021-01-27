@@ -1,0 +1,44 @@
+[general]
+metadata = ~/.local/share/offlineimap
+# List of accounts to be synced, separated by a comma.
+accounts = main
+# Path to file with arbitrary Python code to be loaded
+pythonfile = ~/.config/offlineimap/offlineimap.py
+
+# You can specify one or more user interface
+ui = Basic
+
+[Account main]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = main-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = main-remote
+
+# This command is run after every sync
+postsynchook = ~/.config/offlineimap/offlineimap-postsync.sh
+
+[Repository main-local]
+# OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/.local/share/mail
+
+[Repository main-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = imap.mailbox.org
+remoteuser = jared_forrest@mailbox.org
+# Decrypt and read the encrypted password
+remotepasseval = get_pass("net/Mailbox")
+
+#CA-certificate file
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+# Mutt Settings
+[mbnames]
+enabled = yes
+filename = ~/.local/share/mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
