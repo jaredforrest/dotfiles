@@ -4,16 +4,14 @@ set expandtab
 
 let g:ycm_clangd_binary_path = "/path/to/clangd"
 " Specify a directory for plugins
-call plug#begin('~/.local/share/nvim/plugged')
+call minpac#init()
 
-Plug 'lervag/vimtex'
-Plug 'ycm-core/YouCompleteMe'
-Plug 'udalov/kotlin-vim'
-Plug 'xavierd/clang_complete'
-Plug 'yegappan/taglist'
-Plug 'fatih/molokai'
-
-call plug#end()
+call minpac#add('lervag/vimtex')
+call minpac#add('Shougo/deoplete.nvim')
+call minpac#add('udalov/kotlin-vim')
+call minpac#add('xavierd/clang_complete')
+call minpac#add('yegappan/taglist')
+call minpac#add('fatih/molokai')
 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 "filetype plugin on
