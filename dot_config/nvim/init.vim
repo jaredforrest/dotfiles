@@ -12,7 +12,6 @@ call minpac#add('Shougo/deoplete.nvim')
 call minpac#add('udalov/kotlin-vim')
 call minpac#add('xavierd/clang_complete')
 call minpac#add('yegappan/taglist')
-call minpac#add('fatih/molokai')
 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 "filetype plugin on
