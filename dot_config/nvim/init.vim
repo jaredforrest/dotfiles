@@ -7,13 +7,18 @@ let g:ycm_clangd_binary_path = "/path/to/clangd"
 packadd minpac
 call minpac#init()
 
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+call minpac#add('xavierd/clang_complete', {'type': 'opt'})
+
+call minpac#add('yegappan/taglist')
+call minpac#add('udalov/kotlin-vim')
 call minpac#add('lervag/vimtex')
+
 call minpac#add('Shougo/deoplete.nvim')
 call minpac#add('roxma/nvim-yarp')
 call minpac#add('roxma/vim-hug-neovim-rpc')
-call minpac#add('udalov/kotlin-vim')
-call minpac#add('xavierd/clang_complete')
-call minpac#add('yegappan/taglist')
+
 
 let g:deoplete#enable_at_startup = 1
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
