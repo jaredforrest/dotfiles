@@ -17,11 +17,11 @@ pkgdir="$cachedir/$pkgname"
 rm -rf "$pkgdir" || die "Error removing files from $pkgdir"
 #mkdir -p "$pkgdir" || die "Error creating $pkgdir"
 
-git clone https://github.com/jaredforrest/PKGBUILDS.git -b "$pkgname" "$cachedir" ||
+git clone https://github.com/jaredforrest/PKGBUILDS.git -b "$pkgname" "$pkgdir" ||
     die 'Error finding package'
 
 [ -n "$nobuild" ] && exit 0
 
-cd "$pkgdir" || die 'Could not cd into cache directory'
+cd "$pkgdir/$pkgname" || die 'Could not cd into cache directory'
 makepkg -sic
 
