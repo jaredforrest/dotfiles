@@ -5,8 +5,12 @@
 umask 077
 passname="$1"
 [ -z "$passname" ] && exit 1
-logfile="${XDG_DATA_HOME:-$HOME/.local/share}/get-pass/log"
-storefile="${XDG_DATA_HOME:-$HOME/.local/share}/get-pass/store"
+datadir="${XDG_DATA_HOME:-$HOME/.local/share}/get-pass"
+
+[ -d "$datadir" ] || mkdir -p "$datadir"
+
+logfile="$datadir/log"
+storefile="$datadir/store"
 
 # check if a temp directory already exists
 [ -f "$storefile" -a -d "$(cat $storefile 2> /dev/null)" ] &&
