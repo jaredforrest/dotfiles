@@ -1,0 +1,47 @@
+### Default programs:
+EDITOR          DEFAULT=nvim
+TERMINAL        DEFAULT=st
+BROWSER         DEFAULT=brave
+READER          DEFAULT=zathura
+
+# For shell script extras
+SHELL_LIB_DIR   DEFAULT=@{HOME}/.local/lib/shell
+
+### Add ~/.local/bin to $PATH
+PATH            DEFAULT=@{HOME}/.local/bin/appimage:${PATH}
+PATH            DEFAULT=@{HOME}/.local/bin:${PATH}
+
+
+### Clean up home
+XDG_CONFIG_HOME DEFAULT=@{HOME}/.config
+XDG_DATA_HOME   DEFAULT=@{HOME}/.local/share
+XDG_CACHE_HOME  DEFAULT=@{HOME}/.cache
+HISTORY_HOME    DEFAULT=${XDG_CACHE_HOME}
+
+# Moving xauthority screws up firejail
+XAUTHORITY	    DEFAULT=${XDG_CONFIG_HOME}/x11/Xauthority
+XINITRC         DEFAULT=${XDG_CONFIG_HOME}/x11/xinitrc
+LESSHISTFILE    DEFAULT=${HISTORY_HOME}/lesshst
+GNUPGHOME       DEFAULT=${XDG_DATA_HOME}/gnupg
+PACH_DIR  	    DEFAULT=${XDG_DATA_HOME}/password-store
+GOPATH          DEFAULT=${XDG_DATA_HOME}/go
+PYTHONSTARTUP   DEFAULT=${XDG_CONFIG_HOME}/pythonrc
+HISTFILE        DEFAULT=${HISTORY_HOME}/history
+WGETRC		    DEFAULT=${XDG_CONFIG_HOME}/wgetrc
+NOTMUCH_CONFIG  DEFAULT=${XDG_CONFIG_HOME}/notmuch/config
+WINEPREFIX      DEFAULT=${XDG_DATA_HOME}/wine
+INPUTRC         DEFAULT=${XDG_CONFIG_HOME}/inputrc
+IPFS_PATH       DEFAULT=${XDG_DATA_HOME}/ipfs
+
+# Set zsh variables
+ZSH             DEFAULT=${XDG_CONFIG_HOME}/zsh
+ZDOTDIR         DEFAULT=${XDG_CONFIG_HOME}/zsh
+
+# For n³
+NNN_PLUG        DEFAULT=p:preview-tabbed;i:imgview
+NNN_FIFO        DEFAULT=/tmp/nnn.fifo
+
+# For japanese ime
+GTK_IM_MODULE DEFAULT=fcitx
+QT_IM_MODULE  DEFAULT=fcitx
+XMODIFIERS    DEFAULT=\@im=fcitx
