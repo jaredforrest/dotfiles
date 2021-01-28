@@ -1,6 +1,8 @@
 #!/bin/sh
 
+{{- if eq .chezmoi.hostname "jalio-desk" }}
 # Set to correct resolution on desktop
+{{- end }}
 xrandr --output DP-2 --mode 2560x1440 --rate 144
 # set wallpaper
 xwallpaper --zoom ~/wallpaper.jpg &
