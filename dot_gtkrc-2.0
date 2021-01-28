@@ -3,7 +3,7 @@
 
 include "/home/jalio/.gtkrc-2.0.mine"
 gtk-theme-name="Breeze-Dark"
-gtk-icon-theme-name="Paper-Mono-Dark"
+gtk-icon-theme-name="Papirus-Dark"
 gtk-font-name="Cantarell 11"
 gtk-cursor-theme-name="Breeze_Default"
 gtk-cursor-theme-size=0
