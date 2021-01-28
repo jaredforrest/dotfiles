@@ -9,6 +9,8 @@ call minpac#init()
 
 call minpac#add('lervag/vimtex')
 call minpac#add('Shougo/deoplete.nvim')
+call minpac#add('roxma/nvim-yarp')
+call minpac#add('roxma/vim-hug-neovim-rpc')
 call minpac#add('udalov/kotlin-vim')
 call minpac#add('xavierd/clang_complete')
 call minpac#add('yegappan/taglist')
