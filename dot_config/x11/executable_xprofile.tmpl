@@ -7,7 +7,7 @@ xwallpaper --zoom ~/wallpaper.jpg &
 # Use Xresources colors/settings on startup
 xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/Xresources
 # picom for transparency and blur
-picom -b --experimental-backend 
+picom -b {{if eq .chezmoi.hostname "jalio-desk"}} --experimental-backend {{end}}
 # Speed typing rate up    
 xset r rate 300 50 & 
 # Remove mouse when idle    
@@ -21,8 +21,10 @@ xclip -sel p </dev/null
 xclip -sel c </dev/null
 
 # Open apps on startup
+{{- if eq .chezmoi.hostname "jalio-desk" }}
 st&
 st&
 st&
+{{- end }}
 brave&
 #firejail firefox&
