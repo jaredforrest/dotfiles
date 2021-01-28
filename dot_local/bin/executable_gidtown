@@ -7,7 +7,9 @@ nobuild="$2"
 
 [ -z "$pkgname" ] && die 'No argument given'
 
-pkgdir="${XDG_CACHE_HOME:-$HOME/.cache}/gidtown/$pkgname"
+cachedir="${XDG_CACHE_HOME:-$HOME/.cache}/gidtown"
+[ -d "$cachedir" ] || mkdir "$cachedir"
+pkgdir="$cachedir/$pkgname"
 
 [ "$(realpath $pkgdir)" = "$pkgdir" ] || die "Invalid pkgname given: $pkgname"
 
@@ -15,7 +17,7 @@ pkgdir="${XDG_CACHE_HOME:-$HOME/.cache}/gidtown/$pkgname"
 rm -rf "$pkgdir" || die "Error removing files from $pkgdir"
 mkdir -p "$pkgdir" || die "Error creating $pkgdir"
 
-git clone git@github.com:jaredforrest/PKGBUILDS.git -b "$pkgname" "$pkgdir" ||
+git clone https://github.com/jaredforrest/PKGBUILDS.git -b "$pkgname" "$pkgdir" ||
     die 'Error finding package'
 
 [ -n "$nobuild" ] && exit 0
