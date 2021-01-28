@@ -132,7 +132,6 @@ previewer_loop () {
 
         [ "$MIME" = inode/symlink ] && MIME="$(file -b --mime-type "$(readlink "$FILE")")" 
 
-        notify-send -t 1000 "$FILE"
         case "$MIME" in
             video/*)
                 mpv --force-window=immediate --loop-file --wid="$XID" "$FILE" &
