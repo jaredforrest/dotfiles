@@ -106,7 +106,7 @@ previewer_loop () {
     start_tabbed
     trap sigint_kill SIGINT
 
-    xdotool windowactivate "$MAINWINDOW"
+    #xdotool windowactivate "$MAINWINDOW"
 
     # Bruteforce focus stealing prevention method,
     # works well in floating window managers like XFCE
@@ -147,6 +147,9 @@ previewer_loop () {
                 ;;
             inode/directory)
                 $TERMINAL "$XID" -e nnn "$FILE" &
+                ;;
+            text/html)
+                $TERMINAL "$XID" -e lynx "$FILE" &
                 ;;
             text/*)
                 $TERMINAL "$XID" -e "$PAGER" "$FILE" &

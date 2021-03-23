@@ -9,3 +9,5 @@
 	name = Jared Forrest
 [push]
 	default = upstream
+[color]
+	ui = auto

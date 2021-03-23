@@ -1,6 +1,8 @@
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set number
+set relativenumber
 
 let g:ycm_clangd_binary_path = "/path/to/clangd"
 " Specify a directory for plugins

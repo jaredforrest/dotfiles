@@ -3,6 +3,7 @@
 # Set personal aliases
 
 #alias tor-browser='tor-browser --dir="$XDG_DATA_HOME/tor-browser"'
+alias electrum='electrum -D ~/.local/share/electrum'
 alias sxiv='sxiv -a'
 alias mutt='mutt -F ~/.config/mutt/muttrc'
 alias tshark='COLORTERM=truecolor tshark --color'
@@ -17,10 +18,10 @@ alias suspend='systemctl suspend'
 alias tp='trash-put'
 alias yt="youtube-dl --add-metadata --ignore-errors"
 alias yta="yt --extract-audio --format bestaudio/best"
+alias z='zathura'
 # "Reading configuration file" useless clutter
 alias ncmpcpp='ncmpcpp -q'
 
-alias z='zathura'
 
 # Privileged access
 if (( UID != 0 )); then

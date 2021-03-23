@@ -15,8 +15,7 @@ pkgdir="$cachedir/$pkgname"
 
 
 rm -rf "$pkgdir" || die "Error removing files from $pkgdir"
-#mkdir -p "$pkgdir" || die "Error creating $pkgdir"
-https://raw.githubusercontent.com/jaredforrest/PKGBUILDS/dmenu-jared/dmenu-jared/PKGBUILD
+mkdir -p "$pkgdir" || die "Error creating $pkgdir"
 git clone https://github.com/jaredforrest/PKGBUILDS.git -b "$pkgname" "$pkgdir" ||
     die 'Error finding package'
 
