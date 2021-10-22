@@ -27,7 +27,9 @@ localfolders = ~/.local/share/mail
 # Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
 type = IMAP
 remotehost = imap.mailbox.org
-remoteuser = jared_forrest@mailbox.org
+#imap.mailbox.org
+remoteuser = jared@jaredforrest.xyz
+#jared_forrest@mailbox.org
 # Decrypt and read the encrypted password
 remotepasseval = get_pass("net/Mailbox")
 

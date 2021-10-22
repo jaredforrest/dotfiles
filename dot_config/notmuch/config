@@ -30,7 +30,7 @@ path=/home/jalio/.local/share/mail
 #
 [user]
 name=Jared Forrest
-primary_email=jared_forrest@mailbox.org
+primary_email=jared@jaredforrest.xyz
 
 # Configuration for "notmuch new"
 #

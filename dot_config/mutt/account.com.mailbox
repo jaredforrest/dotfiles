@@ -1,13 +1,13 @@
 set realname = "Jared Forest"
-set from = "jared_forrest@mailbox.org"
+set from = "jared@jaredforrest.xyz"
 set use_from = yes
 set envelope_from = yes
 
-set smtp_url = "smtps://jared_forrest@mailbox.org@smtp.mailbox.org:465/"
+set smtp_url = "smtps://jared@jaredforrest.xyz@smtp.mailbox.org:465/"
 set smtp_pass = $my_pass
 set record = ""
 
-set imap_user = "jared_forrest@mailbox.org"
+set imap_user = "jared@jaredforrest.xyz"
 set imap_pass = $my_pass
 set folder = "imaps://imap.mailbox.org"
 set spoolfile="=Inbox"

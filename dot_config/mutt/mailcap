@@ -1,6 +1,7 @@
 text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput
 application/pdf; zathura %s
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice %s
+application/msword; libreoffice %s
 image/jpg; sxiv %s
 image/jpeg; sxiv %s
 image/pjpeg; sxiv %s

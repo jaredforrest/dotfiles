@@ -40,6 +40,7 @@ ZDOTDIR         DEFAULT=${XDG_CONFIG_HOME}/zsh
 # For n³
 NNN_PLUG        DEFAULT=p:preview-tabbed;i:imgview
 NNN_FIFO        DEFAULT=/tmp/nnn.fifo
+NNN_TRASH       DEFAULT=1
 
 # For japanese ime
 GTK_IM_MODULE DEFAULT=fcitx

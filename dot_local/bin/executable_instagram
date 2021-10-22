@@ -1,2 +1,2 @@
 #!/bin/sh
-firejail firefox -P Instagram "https://www.instagram.com"
+firejail firefox -P Instagram #"https://www.instagram.com"

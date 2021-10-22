@@ -16,15 +16,18 @@ ctrl + XF86Audio{Next,Prev}
 
 # Increase volume
 XF86AudioRaiseVolume
-    pactl set-sink-volume @DEFAULT_SINK@ +1000
+    "$SHELL_LIB_DIR"/changeVolume.sh +6553
+#    pactl set-sink-volume @DEFAULT_SINK@ +1000
 
 # Decrease volume
 XF86AudioLowerVolume
-    pactl set-sink-volume @DEFAULT_SINK@ -1000
+    "$SHELL_LIB_DIR"/changeVolume.sh -6553
+#    pactl set-sink-volume @DEFAULT_SINK@ -1000
 
 # Mute volume
 XF86AudioMute
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    "$SHELL_LIB_DIR"/changeVolume.sh mute
+#    pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 XF86Calculator
 	$TERMINAL -g +958-514 -n spterm -e qalc

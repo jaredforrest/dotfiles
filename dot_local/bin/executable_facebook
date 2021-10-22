@@ -1,2 +1,0 @@
-#!/bin/sh
-firejail firefox -P Instagram "https://www.facebook.com"
