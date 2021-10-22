@@ -52,6 +52,7 @@ bind pager G            bottom
 bind index,pager <tab>        sync-mailbox
 bind attach l view-mailcap
 bind attach h exit
+bind index,pager V group-chat-reply
 
 # Sorting
 set date_format = "%b %d"
