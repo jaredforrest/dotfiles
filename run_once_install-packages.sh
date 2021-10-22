@@ -1,6 +1,7 @@
 #!/bin/sh
 git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
 
+export PATJ="$HOME/.local/bin:$PATH"
 gidtown dwm-jared
 gidtown dmenu-jared
 gidtown st-jared
