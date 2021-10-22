@@ -1,7 +1,7 @@
 #!/bin/sh
 git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
 
-sudo pacman -S neovim
+sudo pacman -S neovim trash-cli
 export PATH="$HOME/.local/bin:$PATH"
 gidtown dwm-jared
 gidtown dmenu-jared
