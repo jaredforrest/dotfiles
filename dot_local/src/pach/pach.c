@@ -8,29 +8,36 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <gpgme.h>
+#include <unistd.h>
+#include <inttypes.h>
 
 #include <ftw.h> /* for the file list */
 
 #define XSTR(s) STR(s)
 #define STR(s) #s
 
+#define DIE(values...) ({PRINTERR(values); exit(1); })
+#define PRINTERR(values...) ({const char *v[] = { values }; printerr(sizeof(v) / sizeof(*v), v); })
+
 #define MAXFILESIZE 2048
 #define GEN_PASSWORD_LENGTH 50
 #define MAX_PASSWORD_LENGTH 255
 #define MAXSHORTPATH 255
 
-void die(const char message[]);
-void printerr(const char message[]);
+void die(int count, char **messages);
+void printerr(int count, const char ** messages);
 void chkgpgerr(gpgme_error_t);
 bool yesno(void);
 void reset_term_input(void);
 void disable_term_input_flag(tcflag_t flags);
-bool is_valid_char(int onechar);
+bool is_valid_char(char onechar);
+
 void getpassword(const char * filename, char * buffer, size_t buffersize);
 void setpassword(const char *filename, const char *password, size_t passwordlength);
 void generate_password(char * password, size_t size);
 void usage(void);
-void pw_add(const char * filename);
+
+void pw_add(const char * filename, uintmax_t pw_length);
 void pw_del(const char * filename);
 void pw_show(const char * filename);
 void pw_head(const char * filename);
@@ -50,15 +57,15 @@ main(int argc, char *argv[]){
     pachdir = getenv ("PACH_DIR");
 
     if(!pachdir){
-        die("Please set $PACH_DIR");
+        DIE("Please set $PACH_DIR");
     }
 
 
-    if(argc==3)
+    if(argc==3||argc==4)
     {
         char pachfile[MAXSHORTPATH];
         if(strlen(pachdir)+strlen(argv[2])+sizeof("/.gpg")>MAXSHORTPATH)
-            die("Path too long");
+            DIE("Path too long");
         strcpy(pachfile, pachdir);
         strcat(pachfile, "/");
         strcat(pachfile, argv[2]);
@@ -66,7 +73,11 @@ main(int argc, char *argv[]){
 
         switch(argv[1][0]) {
             case 'a':
-                pw_add(pachfile);
+                if(argc==3){
+                    pw_add(pachfile, 0);
+                }else{
+                    pw_add(pachfile, strtoumax(argv[3], NULL, 10));
+                }
                 break;
             case 'd':
                 pw_del(pachfile);
@@ -98,10 +109,10 @@ main(int argc, char *argv[]){
 }
 
 void
-pw_add(const char *filename){
+pw_add(const char *filename, uintmax_t pw_length){
     char password[MAX_PASSWORD_LENGTH + 1] = "";
     char password2[MAX_PASSWORD_LENGTH + 1] = "";
-    size_t passwordlength = GEN_PASSWORD_LENGTH;
+    size_t passwordlength = (pw_length != 0) ? pw_length : GEN_PASSWORD_LENGTH;
 
     printf("Generate a password");
     if (yesno()){
@@ -115,7 +126,7 @@ pw_add(const char *filename){
         scanf("%" XSTR(MAX_PASSWORD_LENGTH) "s", password2);
         reset_term_input();
         if(strcmp(password,password2))
-            die("\nPasswords do not match");
+            DIE("\nPasswords do not match");
         putchar('\n');
         passwordlength = strlen(password);
     }
@@ -130,7 +141,7 @@ pw_del(const char *filename){
     printf("Delete pass file %s", filename);
     if(yesno()){
         status = remove(filename);
-        if (status)printerr("Unable to delete the file");
+        if (status)PRINTERR("Unable to delete the file");
     }
 }
 
@@ -162,13 +173,13 @@ pw_edit(const char * filename){
 
     getpassword(filename, buffer, MAXFILESIZE);
     
-    if(!editor)die("Error: Please set $EDITOR to edit files");
+    if(!editor)DIE("Error: Please set $EDITOR to edit files");
 
     tempfd = mkstemp(temp);
-    if(tempfd<0)printerr("Error: Couldn't create temp file");
+    if(tempfd<0)PRINTERR("Error: Couldn't create temp file");
 
     len = write(tempfd, buffer, strlen(buffer));
-    if(len<0)printerr("Error: Couldn't write to temp file");
+    if(len<0)PRINTERR("Error: Couldn't write to temp file");
 
     cmd = malloc((strlen(editor)+strlen(temp)+2));
 
@@ -181,11 +192,11 @@ pw_edit(const char * filename){
 
     lseek(tempfd, 0, SEEK_SET);
     len = read(tempfd, buffer, MAXFILESIZE);
-    if(len==-1)printerr("Error: Couldn't read from temp file");
+    if(len==-1)PRINTERR("Error: Couldn't read from temp file");
     len = close(tempfd);
-    if(len==-1)printerr("Error: Couldn't close temp file");
+    if(len==-1)PRINTERR("Error: Couldn't close temp file");
     len = remove(temp);
-    if(len==-1)printerr("Error: Couldn't delete temp file");
+    if(len==-1)PRINTERR("Error: Couldn't delete temp file");
 
     setpassword(filename, buffer, strlen(buffer));
 }
@@ -202,6 +213,11 @@ getpassword(const char * filename, char * buffer, size_t buffersize){
     gpgme_ctx_t  ctx;
     gpgme_error_t err;
     ssize_t len;
+
+    // Check file exists
+    if( access( filename, F_OK ) != 0 ) {
+         DIE(filename /*argv[2]*/, " is not in the password store.");
+    }
 
     gpgme_check_version (NULL);
     
@@ -224,11 +240,11 @@ getpassword(const char * filename, char * buffer, size_t buffersize){
     gpgme_wait (ctx, &err, 1);
     chkgpgerr (err);
 
-    err = gpgme_data_seek (plaindata, 0, SEEK_SET);
-    if(len<0)printerr("Error setting buffer position");
+    len = gpgme_data_seek (plaindata, 0, SEEK_SET);
+    if(len<0)PRINTERR("Error setting buffer position");
 
     len = gpgme_data_read (plaindata, buffer, buffersize-1);
-    if(len<0)printerr("Error reading plaintext password");
+    if(len<0)PRINTERR("Error reading plaintext password");
 
     gpgme_data_release (encdata);
     gpgme_data_release (plaindata);
@@ -246,7 +262,6 @@ setpassword(const char *filename, const char *password, size_t passwordlength){
     int pass_file = open(filename, O_WRONLY|O_CREAT, mode);
     char buffer[MAXFILESIZE];
     ssize_t len;
-    size_t * buffersize; 
 
     gpgme_check_version (NULL);
     
@@ -268,10 +283,11 @@ setpassword(const char *filename, const char *password, size_t passwordlength){
 
     gpgme_data_seek(encdata, 0, SEEK_SET);
     len = gpgme_data_read (encdata, buffer, MAXFILESIZE);
-    if(len<0)printerr("Error reading encrypted data");
-   
-    len = write(pass_file, buffer, len);
-    if(len<0)printerr("Error writing data to file");
+    if(len<0)PRINTERR("Error reading encrypted data");
+  
+    // only it len > 0
+    len = write(pass_file, buffer, (size_t)len);
+    if(len<0)PRINTERR("Error writing data to file");
 
     gpgme_data_release(encdata);
     gpgme_data_release (plaindata);
@@ -282,12 +298,12 @@ setpassword(const char *filename, const char *password, size_t passwordlength){
 /* size must be less that 255 */
 void
 generate_password(char * password, size_t size){
-    int onechar;
+    char onechar;
     int dev_random = open("/dev/random", O_RDONLY);
     size_t n = 0;
     for (;n < size;) {
         ssize_t status = read(dev_random, &onechar, 1);
-        if (status<0)printerr("Unable to read from /dev/random");
+        if (status<0)PRINTERR("Unable to read from /dev/random");
         if(is_valid_char(onechar)){
             password[n] = (char) onechar;
             n++;
@@ -322,7 +338,7 @@ disable_term_input_flag (tcflag_t flags){
     struct termios tattr;
 
     if (!isatty (STDIN_FILENO)){
-        printerr("Not a terminal.");
+        PRINTERR("Not a terminal.");
     }
 
     /* Save the terminal attributes so we can restore them later. */
@@ -337,7 +353,7 @@ disable_term_input_flag (tcflag_t flags){
 }
 
 bool
-is_valid_char(int onechar)
+is_valid_char(char onechar)
 {
     return (onechar>=48&&onechar<=57)||
         (onechar>=64&&onechar<=90)||
@@ -362,27 +378,38 @@ yesno()
 }
 
 void
-printerr(const char message[])
+printerr(int count, const char ** messages)
 {
-    fprintf(stderr, "%s\n", message);
-    perror("Error");
+  for( int i = 0; i < count; i++ ){
+    fprintf(stderr, "%s", *messages++);
+  }
+
+  fprintf(stderr, "\n");
+
+  perror("Error");
 }
 
 void
 chkgpgerr(gpgme_error_t err){
     if (err!=GPG_ERR_NO_ERROR)
     {
-    fprintf (stderr, "A gpg error has occured\n%s: %s\n",
-             gpgme_strsource (err), gpgme_strerror (err));
-    exit (1);
+    DIE("A gpg error has occured\n",
+            (const char *)gpgme_strsource (err),
+            ": ",
+            (const char *)gpgme_strerror (err));
     }
 }
 
-void
-die(const char message[])
+_Noreturn void
+die(int count, char ** messages)
 {
-    fprintf(stderr, "%s\n", message);
-    exit(1);
+  for( int i = 0; i < count; i++ ){
+    fprintf(stderr, "%s", *messages++);
+  }
+
+  fprintf(stderr, "\n");
+  exit(1);
+
 }
 
 int

@@ -1,6 +1,8 @@
 #!/bin/sh
 
 die () { >&2 printf '%s.\nAborting.\n' "$1"; exit; }
+trashpkg () { trash-put "$1" || die "Error removing files from $1"; }
+
 
 pkgname="$1"
 nobuild="$2"
@@ -8,16 +10,18 @@ nobuild="$2"
 [ -z "$pkgname" ] && die 'No argument given'
 
 cachedir="${XDG_CACHE_HOME:-$HOME/.cache}/gidtown"
-[ -d "$cachedir" ] || mkdir "$cachedir"
+[ -d "$cachedir" ] || mkdir -p "$cachedir"
+[ -d "$cachedir/trash" ] || mkdir "$cachedir/trash"
 pkgdir="$cachedir/$pkgname"
 
 [ "$(realpath $pkgdir)" = "$pkgdir" ] || die "Invalid pkgname given: $pkgname"
 
 
-rm -rf "$pkgdir" || die "Error removing files from $pkgdir"
+[ -d "$pkgdir" ] && trashpkg $pkgdir
+#rm -rf "$pkgdir" || die "Error removing files from $pkgdir"
 mkdir -p "$pkgdir" || die "Error creating $pkgdir"
 git clone https://github.com/jaredforrest/PKGBUILDS.git -b "$pkgname" "$pkgdir" ||
-    die 'Error finding package'
+    { trashpkg $pkgdir; die 'Error finding package'; }
 
 [ -n "$nobuild" ] && exit 0
 

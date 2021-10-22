@@ -23,3 +23,4 @@ application/x-tex=text.desktop;
 application/rss+xml=nvim.desktop;
 application/epub+zip=org.pwmt.zathura-pdf-mupdf.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-VU1VZ0.desktop;
+inode/directory=darktable.desktop;

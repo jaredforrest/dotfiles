@@ -93,6 +93,7 @@ kill_viewer () {
 sigint_kill () {
 	kill_viewer
 	kill "$TABBEDPID"
+    rm "$IMAGE"
 	exit 0
 }
 
@@ -102,6 +103,9 @@ previewer_loop () {
     exec >/dev/null 2>&1
     #exec >~/nnnn.lolog 2>&1
     MAINWINDOW="$(xdotool getactivewindow)"
+    
+    IMAGE="$(mktemp -u)"
+    mkfifo "$IMAGE"   
 
     start_tabbed
     trap sigint_kill SIGINT
@@ -136,11 +140,19 @@ previewer_loop () {
             video/*)
                 mpv --force-window=immediate --loop-file --wid="$XID" "$FILE" &
                 ;;
+            image/svg+xml)
+                inkscape -w 1024 "$FILE" --export-type png -o - > "$IMAGE" &
+                nsxiv "$IMAGE" -e "$XID" &
+                ;;
+            image/vnd.adobe.photoshop)
+                magick "$FILE[0]" -quality 1 "png:$IMAGE" &
+                nsxiv "$IMAGE" -e "$XID" &
+                ;;
             audio/*)
                 mpv --force-window=immediate --loop-file --wid="$XID" "$FILE" &
                 ;;
             image/*)
-                sxiv -e "$XID" "$FILE" &
+                nsxiv -e "$XID" "$FILE" &
                 ;;
             application/pdf)
                 zathura -e "$XID" "$FILE" &

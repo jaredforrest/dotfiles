@@ -8,7 +8,7 @@ READER          DEFAULT=zathura
 SHELL_LIB_DIR   DEFAULT=@{HOME}/.local/lib/shell
 
 ### Add ~/.local/bin to $PATH
-PATH            DEFAULT=@{HOME}/.local/bin/appimage:${PATH}
+#PATH            DEFAULT=@{HOME}/.local/bin/appimage:${PATH}
 PATH            DEFAULT=@{HOME}/.local/bin:${PATH}
 
 
@@ -32,6 +32,13 @@ NOTMUCH_CONFIG  DEFAULT=${XDG_CONFIG_HOME}/notmuch/config
 WINEPREFIX      DEFAULT=${XDG_DATA_HOME}/wine
 INPUTRC         DEFAULT=${XDG_CONFIG_HOME}/inputrc
 IPFS_PATH       DEFAULT=${XDG_DATA_HOME}/ipfs
+DOT_SAGE        DEFAULT=${XDG_DATA_HOME}/sage
+IPYTHONDIR      DEFAULT=${XDG_DATA_HOME}/ipython
+GRADLE_USER_HOME DEFAULT=${XDG_DATA_HOME}/gradle
+_JAVA_OPTIONS   DEFAULT=-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java
+MATHEMATICA_USERBASE DEFAULT=${XDG_CONFIG_HOME}/mathematica
+NPM_CONFIG_USERCONFIG DEFAULT=${XDG_CONFIG_HOME}/npm/npmrc
+GTK2_RC_FILES   DEFAULT=${XDG_CONFIG_HOME}/gtk-2.0/gtkrc
 
 # Set zsh variables
 ZSH             DEFAULT=${XDG_CONFIG_HOME}/zsh

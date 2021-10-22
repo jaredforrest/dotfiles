@@ -48,6 +48,10 @@ super + shift + t
     notify-time
 
 # Get current time
+super + shift + d
+    notify-date
+
+# Get current time
 super + shift + {h,l,j,k}
     xdotool getactivewindow windowmove --relative -- {-50 0,50 0,0 50,0 -50}
 
