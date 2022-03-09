@@ -4,7 +4,7 @@
 
 #alias tor-browser='tor-browser --dir="$XDG_DATA_HOME/tor-browser"'
 alias electrum='electrum -D ~/.local/share/electrum'
-alias sxiv='nsxiv -a'
+alias sxiv='nsxiv -a -e $XEMBED'
 alias mutt='mutt -F ~/.config/mutt/muttrc'
 alias tshark='COLORTERM=truecolor tshark --color'
 alias ip='ip -color'
