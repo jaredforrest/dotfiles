@@ -1,0 +1,80 @@
+# mod3 is Control_R mod5 is Altgr
+
+# Play/Pause music
+ctrl + XF86AudioPlay
+	mpc toggle -q
+ctrl + mod4 + F8
+	mpc toggle -q
+
+# Previous / Next Song
+ctrl + XF86Audio{Next,Prev}
+	mpc {next,prev} -q
+ctrl + mod4 + F{7,9}
+	mpc {next,prev} -q
+    
+# Play/Pause music
+XF86AudioPlay
+    "$SHELL_LIB_DIR/media-control.sh" play-pause
+mod4 + F8
+    "$SHELL_LIB_DIR/media-control.sh" play-pause
+
+# Previous / Next Song
+XF86Audio{Next,Prev}
+    "$SHELL_LIB_DIR/media-control.sh" {next,previous}
+mod4 + F{9,7}
+    "$SHELL_LIB_DIR/media-control.sh" {next,previous}
+
+# Increase volume
+XF86AudioRaiseVolume
+    "$SHELL_LIB_DIR"/changeVolume.sh +10%
+mod4 + F12
+    "$SHELL_LIB_DIR"/changeVolume.sh +10%
+#    pactl set-sink-volume @DEFAULT_SINK@ +1000
+
+# Decrease volume
+XF86AudioLowerVolume
+    "$SHELL_LIB_DIR"/changeVolume.sh -10%
+mod4 + F11
+    "$SHELL_LIB_DIR"/changeVolume.sh -10%
+#    pactl set-sink-volume @DEFAULT_SINK@ -1000
+
+# Mute volume
+XF86AudioMute
+    "$SHELL_LIB_DIR"/changeVolume.sh mute
+mod4 + F10
+    "$SHELL_LIB_DIR"/changeVolume.sh mute
+#    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+XF86Calculator
+	$TERMINAL -g +958-514 -n spterm -e qalc
+XF86Mail
+	systemctl --user --no-block start offlineimap-oneshot.service; $TERMINAL -g +958+514 -n spterm -e mutt
+XF86Tools
+	$TERMINAL -g +958-514 -n spterm -e ncmpcpp
+# Open pass-dmenu
+ctrl + mod4 + {p,bracketleft}
+    pachmenu { ,--type}
+
+# Open autofill
+ctrl + mod4 + a
+    autofill
+
+# Get current time
+ctrl + mod4 + t
+    notify-time
+
+# Get current time
+ctrl + mod4 + d
+    notify-date
+
+# Get current time
+ctrl + mod4 + {h,l,j,k}
+    xdotool getactivewindow windowmove --relative -- {-50 0,50 0,0 50,0 -50}
+
+# Screenshot
+Print
+    maim -s -u | xclip -selection clipboard -t image/png -i
+
+# Get emoji
+ctrl + mod4 + space
+    emojiselect
